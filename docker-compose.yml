@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  db-mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    networks:
+      - springboot-mysql-net
+  test-app:
+    image: kginyc4012/docker-springboot-test:01v
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-mysql
+    networks:
+      - springboot-mysql-net
+
+networks:
+  springboot-mysql-net:
+    driver: bridge
